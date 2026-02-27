@@ -1,6 +1,7 @@
 # Build artifacts
 terraform-provider-intune
 terraform-provider-intune_*
+intune
 
 # Terraform local files
 .terraform/
