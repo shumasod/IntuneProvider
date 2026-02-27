@@ -2,6 +2,7 @@ DEFAULT_GOAL := build
 
 PROVIDER_BINARY := terraform-provider-intune
 CLI_BINARY      := intune
+OKAN_BINARY     := okan
 NAMESPACE       := shumasod
 NAME            := intune
 VERSION         := 0.1.0
@@ -42,6 +43,17 @@ completions: build-cli
 	./$(CLI_BINARY) completion fish  > completions/intune.fish
 	@echo "Completions written to ./completions/"
 
+# ─── おかん ───────────────────────────────────────────────────────────────────
+
+.PHONY: build-okan
+build-okan:
+	go build $(LDFLAGS) -o $(OKAN_BINARY) ./cmd/okan/
+
+.PHONY: install-okan
+install-okan: build-okan
+	install -m 0755 $(OKAN_BINARY) $(CLI_INSTALL)/$(OKAN_BINARY)
+	@echo "Installed $(CLI_INSTALL)/$(OKAN_BINARY)"
+
 # ─── Quality ──────────────────────────────────────────────────────────────────
 
 .PHONY: test
@@ -76,8 +88,8 @@ docs:
 
 .PHONY: clean
 clean:
-	rm -f $(PROVIDER_BINARY) $(CLI_BINARY)
+	rm -f $(PROVIDER_BINARY) $(CLI_BINARY) $(OKAN_BINARY)
 	rm -rf completions/
 
 .PHONY: all
-all: tidy fmt vet build build-cli
+all: tidy fmt vet build build-cli build-okan

@@ -1,7 +1,8 @@
-# Build artifacts
-terraform-provider-intune
-terraform-provider-intune_*
-intune
+# Build artifacts (root-level binaries only)
+/terraform-provider-intune
+/terraform-provider-intune_*
+/intune
+/okan
 
 # Terraform local files
 .terraform/
