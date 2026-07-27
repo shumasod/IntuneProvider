@@ -230,7 +230,8 @@ var johoCmd = &cobra.Command{
 		fmt.Println("\033[1m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m")
 		fmt.Println("\033[1m         おかんのシステム点検              \033[0m")
 		fmt.Printf("         %s\n", time.Now().Format("2006/01/02 15:04:05"))
-		fmt.Println("\033[1m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m\n")
+		fmt.Println("\033[1m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m")
+		fmt.Println()
 
 		// ディスク
 		if disk, err := GetDiskInfo("/"); err == nil {
