@@ -141,6 +141,7 @@ func (p *IntuneProvider) DataSources(_ context.Context) []func() datasource.Data
 	return []func() datasource.DataSource{
 		NewDeviceConfigurationPolicyDataSource,
 		NewDeviceCompliancePolicyDataSource,
+		NewManagedDeviceDataSource,
 	}
 }
 
