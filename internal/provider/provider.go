@@ -133,6 +133,7 @@ func (p *IntuneProvider) Resources(_ context.Context) []func() resource.Resource
 		NewAppProtectionPolicyAndroidResource,
 		NewWindowsAutopilotProfileResource,
 		NewDeviceGroupResource,
+		NewConfigProfileAssignmentResource,
 	}
 }
 
