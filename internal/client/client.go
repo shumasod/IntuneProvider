@@ -6,6 +6,7 @@ package client
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -44,8 +45,13 @@ func NewClient(tenantID, clientID, clientSecret string) (*Client, error) {
 		return nil, fmt.Errorf("failed to create Azure credential: %w", err)
 	}
 
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			MinVersion: tls.VersionTLS12,
+		},
+	}
 	return &Client{
-		httpClient: &http.Client{Timeout: defaultTimeout},
+		httpClient: &http.Client{Timeout: defaultTimeout, Transport: transport},
 		credential: cred,
 		baseURL:    graphBaseURL,
 	}, nil
