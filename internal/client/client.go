@@ -93,7 +93,8 @@ func (c *Client) doRequest(ctx context.Context, method, path string, body interf
 	}
 	defer resp.Body.Close()
 
-	respBody, err := io.ReadAll(resp.Body)
+	const maxResponseSize = 10 * 1024 * 1024 // 10 MB
+	respBody, err := io.ReadAll(io.LimitReader(resp.Body, maxResponseSize))
 	if err != nil {
 		return nil, resp.StatusCode, fmt.Errorf("failed to read response body: %w", err)
 	}
