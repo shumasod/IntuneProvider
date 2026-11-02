@@ -79,6 +79,7 @@ The service principal needs the following **Application** permissions:
 			"client_id": schema.StringAttribute{
 				MarkdownDescription: "Service principal (application) client ID. Can also be set via `INTUNE_CLIENT_ID`.",
 				Optional:            true,
+				Sensitive:           true,
 			},
 			"client_secret": schema.StringAttribute{
 				MarkdownDescription: "Service principal client secret. Can also be set via `INTUNE_CLIENT_SECRET`.",
