@@ -6,6 +6,7 @@ package provider
 import (
 	"context"
 	"os"
+	"regexp"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/function"
@@ -101,8 +102,12 @@ func (p *IntuneProvider) Configure(ctx context.Context, req provider.ConfigureRe
 	clientID := resolveValue(config.ClientID, "INTUNE_CLIENT_ID")
 	clientSecret := resolveValue(config.ClientSecret, "INTUNE_CLIENT_SECRET")
 
+	guidPattern := regexp.MustCompile(`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`)
+
 	if tenantID == "" {
 		resp.Diagnostics.AddError("Missing tenant_id", "tenant_id must be set in the provider block or via INTUNE_TENANT_ID.")
+	} else if !guidPattern.MatchString(tenantID) {
+		resp.Diagnostics.AddError("Invalid tenant_id", "tenant_id must be a valid UUID (e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).")
 	}
 	if clientID == "" {
 		resp.Diagnostics.AddError("Missing client_id", "client_id must be set in the provider block or via INTUNE_CLIENT_ID.")
