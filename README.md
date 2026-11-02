@@ -172,3 +172,4 @@ Manages an Android MAM (App Protection) policy. Similar attributes to iOS policy
 ## License
 
 MIT
+test
